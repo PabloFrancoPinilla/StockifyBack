@@ -6453,11 +6453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj",
+      "projectUniqueName": "C:\\Users\\franc\\Desktop\\StockifyBack\\Business\\Stockify.Business.csproj",
       "projectName": "Stockify.Business",
-      "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj",
+      "projectPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Business\\Stockify.Business.csproj",
       "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\obj\\",
+      "outputPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -6472,8 +6472,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj": {
-              "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj"
+            "C:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj": {
+              "projectPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj"
             }
           }
         }

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj",
+      "projectUniqueName": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
       "projectName": "Stockify.Models",
-      "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj",
+      "projectPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
       "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\obj\\",
+      "outputPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"

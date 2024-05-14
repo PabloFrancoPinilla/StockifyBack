@@ -11,6 +11,8 @@ public class User{
 
     public int RoleId { get; set;}
     public Role Role {get; set;}
+    public int TenantId { get; set;}
+    public Tenant Tenant{get; set;}
     public User(){}
 
 

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Stockify.Models;
 using Stockify.Business;
 
-namespace TeteInventory.Controllers
+namespace Stockify.Controllers
 {
     [ApiController]
     [Route("[controller]")]

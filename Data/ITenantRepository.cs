@@ -8,4 +8,5 @@ public interface ITenantRepository{
     void Add (Tenant Tenant);
     void Update (Tenant Tenant);
     void Delete (int id);
+    string Login (string username, string password);
 }

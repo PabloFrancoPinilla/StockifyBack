@@ -29,10 +29,10 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("ServerDB");
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
-/* builder.Services.AddScoped<ISeatService, SeatService>();
-builder.Services.AddScoped<ISessionService, SessionService>();
-builder.Services.AddScoped<ISalaService, SalaService>();
-builder.Services.AddScoped<IReserveService, ReserveService>(); */
+builder.Services.AddScoped<ITenantService, TenantService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IProductService, ProductService>(); 
 
 // Register database context
 builder.Services.AddDbContext<StockifyContext>(options =>
@@ -41,11 +41,10 @@ builder.Services.AddDbContext<StockifyContext>(options =>
 // Register repositories
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-/* builder.Services.AddScoped<ISeatRepository, SeatRepository>();
-builder.Services.AddScoped<ISessionRepository, SessionRepository>();
-builder.Services.AddScoped<ISalaRepository, SalaRepository>();
-builder.Services.AddScoped<IReserveRepository, ReserveRepository>();
- */
+builder.Services.AddScoped<ITenantRepository, TenantRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Register services
 var app = builder.Build();

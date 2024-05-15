@@ -30,6 +30,16 @@ public class TenantRepository : ITenantRepository
         _context.Remove(Tenant);
         SaveChanges(); 
     }
+    public string Login (string username, string password){
+        var tenant = _context.Tenants.FirstOrDefault(p=> p.Name == username);
+        if (tenant == null){
+            return "Tenant not found";
+        }else if(tenant.Password == password){
+            return "Tenant found";
+        }else {
+            return "Invalid Credentials";
+        }
+    }
     public void SaveChanges()
     {
         _context.SaveChanges();

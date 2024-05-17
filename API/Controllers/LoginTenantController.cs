@@ -16,9 +16,9 @@ namespace Stockify.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Tenant> Get(string username, string Password)
+        public ActionResult<Tenant> Get(string username, string password)
         {
-            var res = _TenantService.Login(username, Password);
+            var res = _TenantService.Login(username, password);
             return Ok(res);
         }
     }

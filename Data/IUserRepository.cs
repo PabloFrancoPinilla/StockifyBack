@@ -5,7 +5,9 @@ namespace Stockify.Data;
 public interface IUserRepository{
     List<User> GetAll();
     User Get(int id);
-    void Add (User User);
+    UserDto Add (UserCreateDto userCreateDto);
     void Update (User User);
     void Delete (int id);
+    UserDto GetUserFromCredentials(UserLogin userLogin);
+    UserDto MapUserToDto(User user);
 }

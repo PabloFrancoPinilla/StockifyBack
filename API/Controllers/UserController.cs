@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Stockify.Models;
 using Stockify.Business;
+using Stockify.Data;
 
 namespace  Stockify.Controllers
 {
@@ -9,10 +10,13 @@ namespace  Stockify.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _UserService;
+        private readonly StockifyContext _context;
 
-        public UserController(IUserService UserService)
+        public UserController(IUserService UserService,StockifyContext context)
         {
             _UserService = UserService;
+            _context = context;
+            
         }
 
 
@@ -35,12 +39,11 @@ namespace  Stockify.Controllers
             return Ok(User);
         }
 
-
         [HttpPost]
-        public IActionResult Add(User User)
+        public IActionResult Add(UserCreateDto userCreateDto)
         {
-            _UserService.Add(User);
-            return CreatedAtAction(nameof(Get), new { id = User.Id }, User);
+           var userDto = _UserService.Add(userCreateDto);
+        return Ok(userDto);
         }
 
 

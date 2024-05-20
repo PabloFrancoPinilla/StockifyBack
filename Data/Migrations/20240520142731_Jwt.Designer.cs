@@ -12,8 +12,8 @@ using Stockify.Data;
 namespace Stockify.Data.Migrations
 {
     [DbContext(typeof(StockifyContext))]
-    [Migration("20240514132639_Initial")]
-    partial class Initial
+    [Migration("20240520142731_Jwt")]
+    partial class Jwt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,12 @@ namespace Stockify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Inventories");
                 });
@@ -110,23 +115,6 @@ namespace Stockify.Data.Migrations
                     b.ToTable("ProductsCategory");
                 });
 
-            modelBuilder.Entity("Stockify.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Stockify.Models.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -139,16 +127,15 @@ namespace Stockify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InventoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("InventoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tenants");
                 });
@@ -202,19 +189,29 @@ namespace Stockify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.HasIndex("TenantId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Stockify.Models.Inventory", b =>
+                {
+                    b.HasOne("Stockify.Models.Tenant", "Tenant")
+                        .WithMany("Inventories")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("Stockify.Models.Product", b =>
@@ -243,17 +240,6 @@ namespace Stockify.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Stockify.Models.Tenant", b =>
-                {
-                    b.HasOne("Stockify.Models.Inventory", "Inventory")
-                        .WithMany()
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Inventory");
-                });
-
             modelBuilder.Entity("Stockify.Models.Transaction", b =>
                 {
                     b.HasOne("Stockify.Models.Product", "Product")
@@ -267,19 +253,11 @@ namespace Stockify.Data.Migrations
 
             modelBuilder.Entity("Stockify.Models.User", b =>
                 {
-                    b.HasOne("Stockify.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Stockify.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("Tenant");
                 });
@@ -297,6 +275,11 @@ namespace Stockify.Data.Migrations
             modelBuilder.Entity("Stockify.Models.Product", b =>
                 {
                     b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("Stockify.Models.Tenant", b =>
+                {
+                    b.Navigation("Inventories");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,8 +12,8 @@ using Stockify.Data;
 namespace Stockify.Data.Migrations
 {
     [DbContext(typeof(StockifyContext))]
-    [Migration("20240516114659_LoginTenant2")]
-    partial class LoginTenant2
+    [Migration("20240520143408_PollitayHuevos")]
+    partial class PollitayHuevos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,23 +115,6 @@ namespace Stockify.Data.Migrations
                     b.ToTable("ProductsCategory");
                 });
 
-            modelBuilder.Entity("Stockify.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Stockify.Models.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -206,15 +189,13 @@ namespace Stockify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.HasIndex("TenantId");
 
@@ -271,19 +252,11 @@ namespace Stockify.Data.Migrations
 
             modelBuilder.Entity("Stockify.Models.User", b =>
                 {
-                    b.HasOne("Stockify.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Stockify.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("Tenant");
                 });

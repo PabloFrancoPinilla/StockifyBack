@@ -2,9 +2,12 @@ namespace Stockify.Business;
 using Stockify.Models;
 
 public interface IUserService {
-    void Add(User User);
+    UserDto Add(UserCreateDto userCreateDto);
     void Delete(int id);
     void Update(User User);
     User Get (int id);
     List<User> GetAll();
+    UserDto GetUserFromCredentials(UserLogin userLogin);
+    
+    
 }

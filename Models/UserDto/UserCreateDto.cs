@@ -1,17 +1,20 @@
 namespace Stockify.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-public class User{
+public class UserCreateDto{
     [Required]
-    public int Id { get; set;}
     public string Name { get; set;}
+    [Required]
     public string LastName {get; set;}
+    [Required]
+    [EmailAddress]
     public string Email {get;set;}
+    [Required]
     public string Password {get; set;}
-    public string? Role {get; set;}
-    public int TenantId { get; set;}
-    public Tenant Tenant{get; set;}
-    public User(){}
+    public string TenantName {get; set;}    
+
+   
+    public UserCreateDto(){}
 
 
 

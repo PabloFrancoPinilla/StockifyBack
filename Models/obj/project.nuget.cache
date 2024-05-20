@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "whp17VS5em7a2TNp8PJ/xd8mL7+U4aCmUrJGGfI/uG/wwnve3Maqk2VN5IHCIi1fbmLaty/uO5S0kNjR1DgSLw==",
+  "dgSpecHash": "7NKBxuuXg/yCeLG24PHzZ5PAPZshUBgzbEzvZjts25c//hMOCrn44KRNEHMwa0T8YYRysJg9TWdRYXs1LC0PRQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj",
+  "projectFilePath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

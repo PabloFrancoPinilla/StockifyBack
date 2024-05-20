@@ -1,0 +1,17 @@
+version: '3.4'
+
+networks:
+  backend:
+
+
+services:
+  db:
+    #container_name: dbContainer
+    image: mcr.microsoft.com/mssql/server:2019-CU21-ubuntu-20.04
+    ports:
+      - 1433:1433
+    networks:
+      - backend
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>

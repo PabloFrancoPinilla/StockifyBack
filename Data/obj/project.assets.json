@@ -5456,11 +5456,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj",
+      "projectUniqueName": "c:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj",
       "projectName": "Stockify.Data",
-      "projectPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj",
+      "projectPath": "c:\\Users\\franc\\Desktop\\StockifyBack\\Data\\Stockify.Data.csproj",
       "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Data\\obj\\",
+      "outputPath": "c:\\Users\\franc\\Desktop\\StockifyBack\\Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"

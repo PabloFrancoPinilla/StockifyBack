@@ -6,10 +6,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Filters;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+/* Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/stockify-.log", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(); */
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("ServerDB");
@@ -61,6 +70,8 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
+var key = Encoding.ASCII.GetBytes(builder.Configuration["JWT:SecretKey"]);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
     {
@@ -70,9 +81,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.Zero,
             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
             ValidAudience = builder.Configuration["JWT:ValidAudience"],
-            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
+            IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
 
@@ -91,7 +103,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseCors(options =>
 {
     options.WithOrigins("http://localhost:3000")
@@ -99,6 +113,7 @@ app.UseCors(options =>
         .AllowAnyHeader()
         .AllowCredentials();
 });
+
 app.MapControllers();
 
 app.Run();

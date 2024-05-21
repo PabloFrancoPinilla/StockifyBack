@@ -85,7 +85,7 @@ public class UserRepository : IUserRepository
             LastName = userOut.LastName,
             Email = userOut.Email,
             Role = userOut.Role,
-            TenantName = userOut.Tenant.Name
+            TenantName = "hola"
         };
         Console.WriteLine(userDto.Name);
         return userDto;

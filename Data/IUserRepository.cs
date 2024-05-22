@@ -10,4 +10,5 @@ public interface IUserRepository{
     void Delete (int id);
     UserDto GetUserFromCredentials(UserLogin userLogin);
     UserDto MapUserToDto(User user);
+    List<UserDto> GetUsersByTenantId (int tenantId);
 }

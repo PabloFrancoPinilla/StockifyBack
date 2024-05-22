@@ -8,6 +8,7 @@ public interface IUserService {
     User Get (int id);
     List<User> GetAll();
     UserDto GetUserFromCredentials(UserLogin userLogin);
+    List<UserDto> GetUserByTenantId(int tenantId);
     
     
 }

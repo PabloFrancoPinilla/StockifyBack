@@ -1,4 +1,6 @@
 namespace Stockify.Data;
+
+using Microsoft.EntityFrameworkCore;
 using Stockify.Models;
 
 public class UserRepository : IUserRepository
@@ -43,7 +45,7 @@ public class UserRepository : IUserRepository
             Email = user.Email,
             TenantName = userCreateDto.TenantName,
             Role = "reader"
-            
+
             // Asignar el Role si es necesario
         };
 
@@ -73,7 +75,7 @@ public class UserRepository : IUserRepository
     }
     public UserDto GetUserFromCredentials(UserLogin userLogin)
     {
-        var userOut = _context.Users.FirstOrDefault(u => u.Email == userLogin.Email && u.Password == userLogin.Password);
+        var userOut = _context.Users.Include(u=> u.Tenant).FirstOrDefault(u => u.Email == userLogin.Email && u.Password == userLogin.Password);
         if (userOut == null)
         {
             return null;
@@ -85,10 +87,27 @@ public class UserRepository : IUserRepository
             LastName = userOut.LastName,
             Email = userOut.Email,
             Role = userOut.Role,
-            TenantName = "hola"
+            TenantName = userOut.Tenant.Name
         };
         Console.WriteLine(userDto.Name);
         return userDto;
+    }
+    public List<UserDto> GetUsersByTenantId(int tenantId)
+    {
+        var user = _context.Users.Where(u => u.TenantId == tenantId).Select(u => new UserDto
+        {
+            Id = u.Id,
+            Name = u.Name,
+            LastName = u.LastName,
+            Email = u.Email,
+            Role = u.Role
+
+        }).ToList();;
+        if (user == null)
+        {
+            return null;
+        }
+        return user;
     }
 
     public void SaveChanges()

@@ -9,10 +9,12 @@ namespace Stockify.Controllers
     public class TenantController : ControllerBase
     {
         private readonly ITenantService _TenantService;
+        private readonly IUserService _UserService;
 
-        public TenantController(ITenantService TenantService)
+        public TenantController(ITenantService TenantService, IUserService UserService)
         {
             _TenantService = TenantService;
+            _UserService = UserService;
         }
 
 
@@ -34,12 +36,22 @@ namespace Stockify.Controllers
             }
             return Ok(Tenant);
         }
-
+        [HttpGet("{tenantId}/users")]
+        public IActionResult GetUserByTenantId(int tenantId)
+        {
+            var User = _UserService.GetUserByTenantId(tenantId);
+            if (User == null)
+            {
+                return NotFound();
+            }
+            return Ok(User);
+        }
 
         [HttpPost]
         public IActionResult Add([FromBody] TenantCreateDto TenantCreateDto)
         {
-            if (TenantCreateDto == null){
+            if (TenantCreateDto == null)
+            {
                 return BadRequest();
             }
             var Tenant = new Tenant
@@ -47,7 +59,7 @@ namespace Stockify.Controllers
                 Name = TenantCreateDto.Name,
                 Password = TenantCreateDto.Password,
                 Contact = TenantCreateDto.Contact
-                
+
             };
             _TenantService.Add(Tenant);
             return CreatedAtAction(nameof(Get), new { id = Tenant.Id }, Tenant);

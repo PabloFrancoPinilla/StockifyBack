@@ -38,6 +38,8 @@ namespace  Stockify.Controllers
             }
             return Ok(User);
         }
+       
+
 
         [HttpPost]
         public IActionResult Add(UserCreateDto userCreateDto)

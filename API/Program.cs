@@ -30,7 +30,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<IProductService, ProductService>(); 
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Register repositories
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
@@ -93,8 +93,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminPolicy", policy =>
         policy.RequireRole(Roles.Admin));
 
-    options.AddPolicy("ReaderPolicy", policy =>
+    options.AddPolicy("AdminPolicy", policy =>
         policy.RequireRole(Roles.Reader));
+
+    options.AddPolicy("TenantPolicy", policy =>
+        policy.RequireRole(Roles.Tenant));
 });
 
 var app = builder.Build();

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stockify.Models;
 using Stockify.Business;
+using System.Security.Claims;
 
 namespace Stockify.Controllers
 {
@@ -17,7 +18,7 @@ namespace Stockify.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.Reader + "," + Roles.Admin)]// Política de autorización para leer inventarios
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]// Política de autorización para leer inventarios
         public IActionResult GetAll()
         {
             var inventories = _inventoryService.GetAll();
@@ -25,7 +26,7 @@ namespace Stockify.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = Roles.Reader)] // Política de autorización para leer inventarios
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)] // Política de autorización para leer inventarios
         public IActionResult Get(int id)
         {
             var inventory = _inventoryService.Get(id);
@@ -37,15 +38,23 @@ namespace Stockify.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Roles.Admin)] // Política de autorización para agregar inventarios
-        public IActionResult Add(Inventory inventory)
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]// Política de autorización para agregar inventarios
+        public IActionResult Add([FromBody] InventoryCreateDto inventoryCreateDto)
         {
+            var tenantId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var inventory = new Inventory
+            {
+                Name = inventoryCreateDto.Name,
+                CreationDate = inventoryCreateDto.CreationDate,
+                TenantId = tenantId
+
+            };
             _inventoryService.Add(inventory);
             return CreatedAtAction(nameof(Get), new { id = inventory.Id }, inventory);
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = Roles.Admin)] // Política de autorización para actualizar inventarios
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)] // Política de autorización para actualizar inventarios
         public IActionResult Update(int id, Inventory inventory)
         {
             if (id != inventory.Id)
@@ -57,7 +66,7 @@ namespace Stockify.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)] // Política de autorización para eliminar inventarios
+        [Authorize(Roles = Roles.Tenant)] // Política de autorización para eliminar inventarios
         public IActionResult Delete(int id)
         {
             _inventoryService.Delete(id);

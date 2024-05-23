@@ -9,4 +9,5 @@ public interface ITenantRepository{
     void Update (Tenant Tenant);
     void Delete (int id);
     string Login (string username, string password);
+    TenantDto GetTenantFromCredentials(LoginRequest loginRequest);
 }

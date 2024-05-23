@@ -58,7 +58,8 @@ namespace Stockify.Controllers
             {
                 Name = TenantCreateDto.Name,
                 Password = TenantCreateDto.Password,
-                Contact = TenantCreateDto.Contact
+                Contact = TenantCreateDto.Contact,
+                Role = "tenant"
 
             };
             _TenantService.Add(Tenant);

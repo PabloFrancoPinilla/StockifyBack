@@ -8,7 +8,7 @@ public interface IUserRepository{
     UserDto Add (UserCreateDto userCreateDto);
     void Update (User User);
     void Delete (int id);
-    UserDto GetUserFromCredentials(UserLogin userLogin);
+    UserDto GetUserFromCredentials(LoginRequest loginRequest);
     UserDto MapUserToDto(User user);
     List<UserDto> GetUsersByTenantId (int tenantId);
 }

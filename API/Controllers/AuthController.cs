@@ -26,30 +26,41 @@ namespace Stockify.API.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult IniciarSesion([FromBody] UserLogin userLogin)
+        public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var user = _authService.Login(userLogin);
-
-                if (user == null)
-                    return NotFound("Usuario no encontrado.");
+                var result = _authService.Login(loginRequest);
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_configuration["JWT:SecretKey"]);
 
-                var claims = new List<Claim>
+                var claims = new List<Claim>();
+                string role = null;
+
+                if (loginRequest.IsTenant)
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim("LastName", user.LastName),
-                    new Claim("TenantName", user.TenantName),
-                    new Claim(ClaimTypes.Role, user.Role)
-                };
+                    var tenant = (TenantDto)result;
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, tenant.Id.ToString()));
+                    claims.Add(new Claim(ClaimTypes.Name, tenant.Name));
+                    claims.Add(new Claim("Contact", tenant.Contact));
+                    claims.Add(new Claim(ClaimTypes.Role, tenant.Role));
+                    role = "Tenant";
+                }
+                else
+                {
+                    var user = (UserDto)result;
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                    claims.Add(new Claim(ClaimTypes.Email, user.Email));
+                    claims.Add(new Claim(ClaimTypes.Name, user.Name));
+                    claims.Add(new Claim("LastName", user.LastName));
+                    claims.Add(new Claim("TenantName", user.TenantName));
+                    claims.Add(new Claim(ClaimTypes.Role, user.Role));
+                    role = user.Role;
+                }
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -63,13 +74,22 @@ namespace Stockify.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { token = tokenString });
+                
+                var response = new
+                {
+                    token = tokenString,
+                    role = role 
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = "Ocurrió un error al intentar iniciar sesión.", error = ex.Message });
             }
         }
+
+
 
         [HttpPost("Register")]
         [AllowAnonymous]

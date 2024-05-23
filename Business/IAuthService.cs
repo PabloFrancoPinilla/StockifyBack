@@ -4,6 +4,6 @@ using Stockify.Data;
 using Stockify.Models;
 
 public interface IAuthService {
-    UserDto Login (UserLogin credentials);
+    Object Login (LoginRequest credentials);
     UserDto Register (UserCreateDto userCreateDto);
 }

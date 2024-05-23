@@ -8,21 +8,34 @@ namespace Stockify.Business
     {
         private readonly IUserRepository _repository;
         private readonly IUserService _service;
+        private readonly ITenantService _tenantService;
 
-        public AuthService(IUserRepository repository, IUserService service)
+        public AuthService(IUserRepository repository, IUserService service, ITenantService tenantService)
         {
             _repository = repository;
             _service = service;
+            _tenantService = tenantService;
         }
 
-        public UserDto Login(UserLogin userLogin)
+        public object Login(LoginRequest loginRequest)
         {
-            var user = _repository.GetUserFromCredentials(userLogin);
-            if (user == null)
+            if (loginRequest.IsTenant)
             {
-                throw new Exception("Invalid login credentials.");
+                var tenant = _tenantService.GetTenantFromCredentials(loginRequest);
+                if(tenant == null){
+                     throw new Exception("Invalid login credentials.");
+                }
+                return tenant;
             }
-            return user;
+            else
+            {
+                var user = _repository.GetUserFromCredentials(loginRequest);
+                if (user == null)
+                {
+                    throw new Exception("Invalid login credentials.");
+                }
+                return user;
+            }
         }
 
         public UserDto Register(UserCreateDto userCreateDto)

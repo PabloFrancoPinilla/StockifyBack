@@ -1,14 +1,14 @@
 namespace Stockify.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-public class Tenant{
+public class TenantDto{
     [Required]
-    public int Id { get; set;}
+    public int Id { get; set; }
+   
     public string Name { get; set;}
-    public string Password { get; set;}
+
     public string Contact{get;set;}
-    public string Role{get; set;}
-    public List<Inventory> Inventories { get; set;}
-    public Tenant(){}
+    public string Role{get;set;}
+    public TenantDto(){}
 
 }

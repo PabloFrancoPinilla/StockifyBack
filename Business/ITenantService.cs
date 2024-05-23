@@ -8,4 +8,5 @@ public interface ITenantService {
     void Update(Tenant Tenant);
     Tenant Get (int id);
     List<Tenant> GetAll();
+    TenantDto GetTenantFromCredentials(LoginRequest loginRequest);
 }

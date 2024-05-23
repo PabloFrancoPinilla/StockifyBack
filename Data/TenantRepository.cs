@@ -17,26 +17,54 @@ public class TenantRepository : ITenantRepository
     {
         return _context.Tenants.ToList();
     }
+    public TenantDto GetTenantFromCredentials(LoginRequest loginRequest)
+    {
+        var tenantOut = _context.Tenants.FirstOrDefault(t => t.Name == loginRequest.Username && t.Password == loginRequest.Password);
+        if (tenantOut == null)
+        {
+            return null;
+        }
+
+        var tenantDto = new TenantDto
+        {
+            Id = tenantOut.Id,
+            Name = tenantOut.Name,
+            Contact = tenantOut.Contact,
+            Role = tenantOut.Role,
+            
+        };
+
+        return tenantDto;
+    }
+
     public void Add(Tenant Tenant)
     {
         _context.Tenants.Add(Tenant);
         SaveChanges();
     }
-    public void Update (Tenant Tenant){
-        
+    public void Update(Tenant Tenant)
+    {
+
     }
-    public void Delete (int id){
+    public void Delete(int id)
+    {
         var Tenant = _context.Tenants.Find(id);
         _context.Remove(Tenant);
-        SaveChanges(); 
+        SaveChanges();
     }
-    public string Login (string username, string password){
-        var tenant = _context.Tenants.FirstOrDefault(p=> p.Name == username);
-        if (tenant == null){
+    public string Login(string username, string password)
+    {
+        var tenant = _context.Tenants.FirstOrDefault(p => p.Name == username);
+        if (tenant == null)
+        {
             return "Tenant not found";
-        }else if(tenant.Password == password){
+        }
+        else if (tenant.Password == password)
+        {
             return "Tenant found";
-        }else {
+        }
+        else
+        {
             return "Invalid Credentials";
         }
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj": {}
+    "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj": {}
   },
   "projects": {
-    "c:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj": {
+    "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
+        "projectUniqueName": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
         "projectName": "Stockify.Models",
-        "projectPath": "c:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
+        "projectPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\Stockify.Models.csproj",
         "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\franc\\Desktop\\StockifyBack\\Models\\obj\\",
+        "outputPath": "C:\\Users\\franc\\Desktop\\StockifyBack\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"

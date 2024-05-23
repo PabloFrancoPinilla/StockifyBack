@@ -13,5 +13,6 @@ public void Delete(int id)=>_TenantRepository.Delete(id);
 public List<Tenant> GetAll () => _TenantRepository.GetAll();
 public void Add (Tenant Tenant) => _TenantRepository.Add(Tenant);
 public string Login (string username, string password)=> _TenantRepository.Login(username, password);
+public TenantDto GetTenantFromCredentials(LoginRequest loginRequest) => _TenantRepository.GetTenantFromCredentials(loginRequest);
 
 }

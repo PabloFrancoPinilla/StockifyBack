@@ -73,9 +73,9 @@ public class UserRepository : IUserRepository
         _context.Remove(User);
         SaveChanges();
     }
-    public UserDto GetUserFromCredentials(UserLogin userLogin)
+    public UserDto GetUserFromCredentials(LoginRequest loginRequest)
     {
-        var userOut = _context.Users.Include(u=> u.Tenant).FirstOrDefault(u => u.Email == userLogin.Email && u.Password == userLogin.Password);
+        var userOut = _context.Users.Include(u=> u.Tenant).FirstOrDefault(u => u.Name == loginRequest.Username && u.Password == loginRequest.Password);
         if (userOut == null)
         {
             return null;
@@ -102,7 +102,7 @@ public class UserRepository : IUserRepository
             Email = u.Email,
             Role = u.Role
 
-        }).ToList();;
+        }).ToList();
         if (user == null)
         {
             return null;

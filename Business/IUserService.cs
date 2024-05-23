@@ -7,7 +7,7 @@ public interface IUserService {
     void Update(User User);
     User Get (int id);
     List<User> GetAll();
-    UserDto GetUserFromCredentials(UserLogin userLogin);
+    UserDto GetUserFromCredentials(LoginRequest loginRequest);
     List<UserDto> GetUserByTenantId(int tenantId);
     
     

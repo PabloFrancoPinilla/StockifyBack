@@ -31,12 +31,11 @@ public class TenantRepository : ITenantRepository
             Name = tenantOut.Name,
             Contact = tenantOut.Contact,
             Role = tenantOut.Role,
-            
+
         };
 
         return tenantDto;
     }
-
     public void Add(Tenant Tenant)
     {
         _context.Tenants.Add(Tenant);

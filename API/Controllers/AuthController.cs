@@ -1,16 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using Stockify.Business;
-using Stockify.Models;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authorization;
-
 namespace Stockify.API.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.Extensions.Configuration;
+    using Stockify.Business;
+    using Stockify.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using Microsoft.IdentityModel.Tokens;
+
     [Route("[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -58,6 +59,7 @@ namespace Stockify.API.Controllers
                     claims.Add(new Claim(ClaimTypes.Name, user.Name));
                     claims.Add(new Claim("LastName", user.LastName));
                     claims.Add(new Claim("TenantName", user.TenantName));
+                    claims.Add(new Claim("TenantId", user.TenantId.ToString()));
                     claims.Add(new Claim(ClaimTypes.Role, user.Role));
                     role = user.Role;
                 }
@@ -74,11 +76,11 @@ namespace Stockify.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                
+
                 var response = new
                 {
                     token = tokenString,
-                    role = role 
+                    role = role
                 };
 
                 return Ok(response);
@@ -88,8 +90,6 @@ namespace Stockify.API.Controllers
                 return BadRequest(new { message = "Ocurrió un error al intentar iniciar sesión.", error = ex.Message });
             }
         }
-
-
 
         [HttpPost("Register")]
         [AllowAnonymous]
@@ -139,5 +139,6 @@ namespace Stockify.API.Controllers
                 return BadRequest(new { message = "Ocurrió un error al intentar registrar el usuario.", error = ex.Message });
             }
         }
+
     }
 }

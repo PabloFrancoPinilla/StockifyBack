@@ -13,6 +13,7 @@ public class UserDto{
     public string Email {get;set;}
     [Required]
     public string TenantName {get; set;}  
+     public int TenantId {get; set;} 
     public string Role {get; set;}  
 
    

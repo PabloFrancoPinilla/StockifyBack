@@ -63,10 +63,23 @@ public class UserRepository : IUserRepository
 
         };
     }
-    public void Update(User User)
+    public void Update(User user)
     {
+        var existingUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+        if (existingUser != null)
+        {
+            // Actualizar las propiedades del usuario existente
+            existingUser.Name = user.Name;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password;
+            existingUser.Role = user.Role;
 
+            // Guardar los cambios en la base de datos
+            SaveChanges();
+        }
     }
+
     public void Delete(int id)
     {
         var User = _context.Users.Find(id);
@@ -75,7 +88,7 @@ public class UserRepository : IUserRepository
     }
     public UserDto GetUserFromCredentials(LoginRequest loginRequest)
     {
-        var userOut = _context.Users.Include(u=> u.Tenant).FirstOrDefault(u => u.Name == loginRequest.Username && u.Password == loginRequest.Password);
+        var userOut = _context.Users.Include(u => u.Tenant).FirstOrDefault(u => u.Name == loginRequest.Username && u.Password == loginRequest.Password);
         if (userOut == null)
         {
             return null;

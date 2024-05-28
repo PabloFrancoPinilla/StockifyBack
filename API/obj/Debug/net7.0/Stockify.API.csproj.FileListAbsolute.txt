@@ -199,3 +199,4 @@ C:\Users\franc\Desktop\StockifyBack\API\obj\Debug\net7.0\refint\Stockify.API.dll
 C:\Users\franc\Desktop\StockifyBack\API\obj\Debug\net7.0\Stockify.API.pdb
 C:\Users\franc\Desktop\StockifyBack\API\obj\Debug\net7.0\Stockify.API.genruntimeconfig.cache
 C:\Users\franc\Desktop\StockifyBack\API\obj\Debug\net7.0\ref\Stockify.API.dll
+E:\StockifyBack\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

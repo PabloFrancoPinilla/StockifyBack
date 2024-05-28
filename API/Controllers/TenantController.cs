@@ -58,7 +58,7 @@ namespace Stockify.Controllers
             }
             var Tenant = new Tenant
             {
-                Name = TenantCreateDto.Name,
+                Name = TenantCreateDto.Username,
                 Password = TenantCreateDto.Password,
                 Contact = TenantCreateDto.Contact,
                 Role = "tenant"

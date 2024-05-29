@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Stockify.Models;
 using Stockify.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TeteProduct.Controllers
 {
@@ -25,6 +26,7 @@ namespace TeteProduct.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Get(int id)
         {
             var Product = _ProductService.Get(id);
@@ -36,13 +38,18 @@ namespace TeteProduct.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult Add(Product Product)
+       [HttpPost]
+       [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult Add([FromBody] ProductCreateDto productCreateDto)
         {
-            _ProductService.Add(Product);
-            return CreatedAtAction(nameof(Get), new { id = Product.Id }, Product);
-        }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var product = _ProductService.Add(productCreateDto);
+            return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+        }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, Product Product)

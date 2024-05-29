@@ -37,8 +37,11 @@ namespace Stockify.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(Category Category)
+        public IActionResult Add(CategoryCreateDto categoryCreateDto)
         {
+            var Category = new Category{
+                Name = categoryCreateDto.Name
+            };
             _CategoryService.Add(Category);
             return CreatedAtAction(nameof(Get), new { id = Category.Id }, Category);
         }

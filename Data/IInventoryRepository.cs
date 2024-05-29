@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Http;
 using Stockify.Models;
 
 namespace Stockify.Data;
 
 public interface IInventoryRepository{
-    List<Inventory> GetAll();
-    Inventory Get(int id);
+    List<InventoryDto> GetAll(HttpContext httpContext);
+    InventoryDto Get(int id);
     void Add (Inventory inventory);
     void Update (Inventory inventory);
     void Delete (int id);

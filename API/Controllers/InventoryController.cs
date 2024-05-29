@@ -21,7 +21,7 @@ namespace Stockify.Controllers
         [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]// Política de autorización para leer inventarios
         public IActionResult GetAll()
         {
-            var inventories = _inventoryService.GetAll();
+            var inventories = _inventoryService.GetAll(HttpContext);
             return Ok(inventories);
         }
 

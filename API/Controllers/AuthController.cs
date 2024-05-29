@@ -46,6 +46,7 @@ namespace Stockify.API.Controllers
                 {
                     var tenant = (TenantDto)result;
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, tenant.Id.ToString()));
+                    claims.Add(new Claim("TenantId", tenant.Id.ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, tenant.Name));
                     claims.Add(new Claim("Contact", tenant.Contact));
                     claims.Add(new Claim(ClaimTypes.Role, tenant.Role));
@@ -117,6 +118,7 @@ namespace Stockify.API.Controllers
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim("LastName", user.LastName),
                     new Claim("TenantName", user.TenantName),
+                    new Claim("TenantId", user.TenantId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
 

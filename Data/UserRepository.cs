@@ -44,6 +44,7 @@ public class UserRepository : IUserRepository
             LastName = user.LastName,
             Email = user.Email,
             TenantName = userCreateDto.TenantName,
+            TenantId = user.TenantId,
             Role = "reader"
 
             // Asignar el Role si es necesario
@@ -100,7 +101,8 @@ public class UserRepository : IUserRepository
             LastName = userOut.LastName,
             Email = userOut.Email,
             Role = userOut.Role,
-            TenantName = userOut.Tenant.Name
+            TenantName = userOut.Tenant.Name,
+            TenantId = userOut.TenantId
         };
         Console.WriteLine(userDto.Name);
         return userDto;

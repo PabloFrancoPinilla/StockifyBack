@@ -38,7 +38,7 @@ namespace Stockify.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]// Política de autorización para agregar inventarios
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)] // Política de autorización para agregar inventarios
         public IActionResult Add([FromBody] InventoryCreateDto inventoryCreateDto)
         {
             var tenantId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -46,12 +46,16 @@ namespace Stockify.Controllers
             {
                 Name = inventoryCreateDto.Name,
                 CreationDate = inventoryCreateDto.CreationDate,
-                TenantId = tenantId
-
+                Description = inventoryCreateDto.Description,
+                Color = inventoryCreateDto.Color,
+                TenantId = tenantId,
+                Image = inventoryCreateDto.Image,
+                Location = inventoryCreateDto.Location
             };
             _inventoryService.Add(inventory);
             return CreatedAtAction(nameof(Get), new { id = inventory.Id }, inventory);
         }
+
 
         [HttpPut("{id}")]
         [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)] // Política de autorización para actualizar inventarios

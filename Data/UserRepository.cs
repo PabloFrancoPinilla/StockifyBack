@@ -1,5 +1,6 @@
 namespace Stockify.Data;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Stockify.Models;
 
@@ -107,9 +108,12 @@ public class UserRepository : IUserRepository
         Console.WriteLine(userDto.Name);
         return userDto;
     }
-    public List<UserDto> GetUsersByTenantId(int tenantId)
+    public List<UserDto> GetUsersByTenantId( HttpContext httpContext)
     {
-        var user = _context.Users.Where(u => u.TenantId == tenantId).Select(u => new UserDto
+        var user = httpContext.User;
+        var tenantIdClaim = user.FindFirst("TenantId");
+        int tenantId = Convert.ToInt32(tenantIdClaim.Value);
+        var userdto = _context.Users.Where(u => u.TenantId == tenantId).Select(u => new UserDto
         {
             Id = u.Id,
             Name = u.Name,
@@ -122,7 +126,7 @@ public class UserRepository : IUserRepository
         {
             return null;
         }
-        return user;
+        return userdto;
     }
 
     public void SaveChanges()

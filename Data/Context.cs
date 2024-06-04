@@ -14,19 +14,34 @@ public class StockifyContext :DbContext
         {
           
 
-            // Relación entre Product y ProductCategory (muchos a muchos)
+             modelBuilder.Entity<Product>()
+                .HasOne(p => p.Inventory)
+                .WithMany(i => i.Products)
+                .HasForeignKey(p => p.InventoryId)
+                .OnDelete(DeleteBehavior.NoAction);  // No action on delete
+
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.Inventory)
+                .WithMany(i => i.Categories)
+                .HasForeignKey(c => c.InventoryId)
+                .OnDelete(DeleteBehavior.NoAction);  // No action on delete
+
             modelBuilder.Entity<ProductCategory>()
                 .HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
             modelBuilder.Entity<ProductCategory>()
                 .HasOne(pc => pc.Product)
                 .WithMany(p => p.ProductCategories)
-                .HasForeignKey(pc => pc.ProductId);
+                .HasForeignKey(pc => pc.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProductCategory>()
                 .HasOne(pc => pc.Category)
                 .WithMany(c => c.ProductCategories)
-                .HasForeignKey(pc => pc.CategoryId);
+                .HasForeignKey(pc => pc.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            
 
         }
 

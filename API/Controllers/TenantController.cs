@@ -38,10 +38,11 @@ namespace Stockify.Controllers
             return Ok(tenant);
         }
 
-        [HttpGet("{tenantId}/users")]
-        public IActionResult GetUserByTenantId(int tenantId)
+        [HttpGet("/users")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetUsersByTenantId()
         {
-            var user = _userService.GetUserByTenantId(tenantId);
+            var user = _userService.GetUsersByTenantId(HttpContext);
             if (user == null)
             {
                 return NotFound();

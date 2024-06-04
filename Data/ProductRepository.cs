@@ -126,64 +126,64 @@ public class ProductRepository : IProductRepository
     }
 
     public void Update(ProductUpdateDto updatedProductDto, HttpContext httpContext)
-{
-    var user = httpContext.User;
-    var makerNameClaim = user.FindFirst(ClaimTypes.Name);
-    string makerName = makerNameClaim != null ? makerNameClaim.Value : "Unknown";
-
-    var existingProduct = _context.Products
-        .Include(p => p.ProductCategories)
-        .FirstOrDefault(p => p.Id == updatedProductDto.Id);
-
-    if (existingProduct != null)
     {
-        int quantityDifference = updatedProductDto.Quantity - existingProduct.Quantity;
+        var user = httpContext.User;
+        var makerNameClaim = user.FindFirst(ClaimTypes.Name);
+        string makerName = makerNameClaim != null ? makerNameClaim.Value : "Unknown";
 
-        existingProduct.Name = updatedProductDto.Name;
-        existingProduct.Description = updatedProductDto.Description;
-        existingProduct.Price = updatedProductDto.Price;
-        existingProduct.Quantity = updatedProductDto.Quantity;
+        var existingProduct = _context.Products
+            .Include(p => p.ProductCategories)
+            .FirstOrDefault(p => p.Id == updatedProductDto.Id);
 
-        var existingCategoryIds = existingProduct.ProductCategories.Select(pc => pc.CategoryId).ToList();
-        var updatedCategories = _context.Categories.Where(c => updatedProductDto.CategoryNames.Contains(c.Name)).ToList();
-        var updatedCategoryIds = updatedCategories.Select(c => c.Id).ToList();
-
-        var categoriesToRemove = existingProduct.ProductCategories
-            .Where(pc => !updatedCategoryIds.Contains(pc.CategoryId))
-            .ToList();
-        _context.ProductsCategory.RemoveRange(categoriesToRemove);
-
-        var categoriesToAdd = updatedCategoryIds
-            .Where(id => !existingCategoryIds.Contains(id))
-            .Select(id => new ProductCategory { ProductId = updatedProductDto.Id, CategoryId = id })
-            .ToList();
-        _context.ProductsCategory.AddRange(categoriesToAdd);
-
-        _context.SaveChanges();
-
-        if (quantityDifference != 0)
+        if (existingProduct != null)
         {
-            var transaction = new Transaction
+            int quantityDifference = updatedProductDto.Quantity - existingProduct.Quantity;
+
+            existingProduct.Name = updatedProductDto.Name;
+            existingProduct.Description = updatedProductDto.Description;
+            existingProduct.Price = updatedProductDto.Price;
+            existingProduct.Quantity = updatedProductDto.Quantity;
+
+            var existingCategoryIds = existingProduct.ProductCategories.Select(pc => pc.CategoryId).ToList();
+            var updatedCategories = _context.Categories.Where(c => updatedProductDto.CategoryNames.Contains(c.Name)).ToList();
+            var updatedCategoryIds = updatedCategories.Select(c => c.Id).ToList();
+
+            var categoriesToRemove = existingProduct.ProductCategories
+                .Where(pc => !updatedCategoryIds.Contains(pc.CategoryId))
+                .ToList();
+            _context.ProductsCategory.RemoveRange(categoriesToRemove);
+
+            var categoriesToAdd = updatedCategoryIds
+                .Where(id => !existingCategoryIds.Contains(id))
+                .Select(id => new ProductCategory { ProductId = updatedProductDto.Id, CategoryId = id })
+                .ToList();
+            _context.ProductsCategory.AddRange(categoriesToAdd);
+
+            _context.SaveChanges();
+
+            if (quantityDifference != 0)
             {
-                Type = quantityDifference > 0 ? "Add" : "Remove",
-                Date = DateTime.UtcNow,
-                ProductId = existingProduct.Id,
-                MakerName = makerName,
-                Quantity = Math.Abs(quantityDifference)
-            };
+                var transaction = new Transaction
+                {
+                    Type = quantityDifference > 0 ? "Add" : "Remove",
+                    Date = DateTime.UtcNow,
+                    ProductId = existingProduct.Id,
+                    MakerName = makerName,
+                    Quantity = Math.Abs(quantityDifference)
+                };
 
-            _context.Transactions.Add(transaction);
-        }
+                _context.Transactions.Add(transaction);
+            }
 
-        _context.SaveChanges();
+            _context.SaveChanges();
 
-        _context.Entry(existingProduct).Collection(p => p.ProductCategories).Load();
-        foreach (var productCategory in existingProduct.ProductCategories)
-        {
-            _context.Entry(productCategory).Reference(pc => pc.Category).Load();
+            _context.Entry(existingProduct).Collection(p => p.ProductCategories).Load();
+            foreach (var productCategory in existingProduct.ProductCategories)
+            {
+                _context.Entry(productCategory).Reference(pc => pc.Category).Load();
+            }
         }
     }
-}
 
     public void Delete(int id)
     {

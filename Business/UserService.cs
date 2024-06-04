@@ -1,4 +1,6 @@
 namespace Stockify.Business;
+
+using Microsoft.AspNetCore.Http;
 using Stockify.Data;
 using Stockify.Models;
 public class UserService : IUserService
@@ -15,7 +17,7 @@ public class UserService : IUserService
     public List<User> GetAll() => _UserRepository.GetAll();
     public UserDto Add(UserCreateDto userCreateDto) => _UserRepository.Add(userCreateDto);
     public UserDto GetUserFromCredentials(LoginRequest loginRequest) => _UserRepository.GetUserFromCredentials(loginRequest);
-    public List<UserDto> GetUserByTenantId(int tenantId) => _UserRepository.GetUsersByTenantId(tenantId);
+    public List<UserDto> GetUsersByTenantId ( HttpContext httpContext) => _UserRepository.GetUsersByTenantId(httpContext);
 
 
 

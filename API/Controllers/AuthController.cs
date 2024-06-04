@@ -93,7 +93,7 @@ namespace Stockify.API.Controllers
         }
 
         [HttpPost("Register")]
-        [AllowAnonymous]
+        [Authorize( Roles = Roles.Tenant)]
         public IActionResult RegistrarSesion([FromBody] UserCreateDto userCreateDto)
         {
             try

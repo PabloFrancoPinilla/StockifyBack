@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Stockify.Models;
 
 namespace Stockify.Data;
@@ -10,5 +11,5 @@ public interface IUserRepository{
     void Delete (int id);
     UserDto GetUserFromCredentials(LoginRequest loginRequest);
     UserDto MapUserToDto(User user);
-    List<UserDto> GetUsersByTenantId (int tenantId);
+    List<UserDto> GetUsersByTenantId ( HttpContext httpContext);
 }

@@ -17,6 +17,15 @@ public class CategoryRepository : ICategoryRepository
     {
         return _context.Categories.ToList();
     }
+     public List<CategoryDto> GetCategoriesByInventoryId(int id)
+    {
+        var categories =  _context.Categories.Where(p=>p.InventoryId == id);
+        var categoriesdto = categories.Select(p => new CategoryDto{
+            Id = p.Id,
+            Name = p.Name
+        }).ToList();
+        return categoriesdto;
+    }
     public void Add(Category Category)
     {
         _context.Categories.Add(Category);

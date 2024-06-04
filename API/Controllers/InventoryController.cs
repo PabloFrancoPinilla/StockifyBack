@@ -12,11 +12,13 @@ namespace Stockify.Controllers
     {
         private readonly IInventoryService _inventoryService;
         private readonly IProductService _productService;
+         private readonly ICategoryService _categoryService;
 
-        public InventoryController(IInventoryService inventoryService, IProductService productService)
+        public InventoryController(IInventoryService inventoryService, IProductService productService, ICategoryService categoryService)
         {
             _inventoryService = inventoryService;
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -48,6 +50,13 @@ namespace Stockify.Controllers
                 return NotFound();
             }
             return Ok(products);
+        }
+         [HttpGet("{inventoryId}/categories")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetCategoriesByInventoryId(int inventoryId)
+        {
+            var inventories = _categoryService.GetCategoriesByInventoryId(inventoryId);
+            return Ok(inventories);
         }
 
 

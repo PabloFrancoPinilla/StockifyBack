@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Stockify.Models;
 using Stockify.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Stockify.Controllers
 {
@@ -16,15 +17,11 @@ namespace Stockify.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var inventories = _CategoryService.GetAll();
-            return Ok(inventories);
-        }
+       
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Get(int id)
         {
             var Category = _CategoryService.Get(id);
@@ -37,10 +34,13 @@ namespace Stockify.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Add(CategoryCreateDto categoryCreateDto)
         {
-            var Category = new Category{
-                Name = categoryCreateDto.Name
+            var Category = new Category
+            {
+                Name = categoryCreateDto.Name,
+                InventoryId = categoryCreateDto.InventoryId
             };
             _CategoryService.Add(Category);
             return CreatedAtAction(nameof(Get), new { id = Category.Id }, Category);
@@ -48,6 +48,7 @@ namespace Stockify.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Update(int id, Category Category)
         {
             if (id != Category.Id)
@@ -60,6 +61,7 @@ namespace Stockify.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Delete(int id)
         {
             _CategoryService.Delete(id);

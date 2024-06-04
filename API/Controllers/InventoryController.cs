@@ -11,10 +11,12 @@ namespace Stockify.Controllers
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _inventoryService;
+        private readonly IProductService _productService;
 
-        public InventoryController(IInventoryService inventoryService)
+        public InventoryController(IInventoryService inventoryService, IProductService productService)
         {
             _inventoryService = inventoryService;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -36,6 +38,18 @@ namespace Stockify.Controllers
             }
             return Ok(inventory);
         }
+        [HttpGet("{inventoryId}/products")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetProductsByInventoryId(int inventoryId)
+        {
+            var products = _productService.GetProductsByInventoryId(inventoryId);
+            if (products == null || products.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
+
 
         [HttpPost]
         [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)] // Política de autorización para agregar inventarios

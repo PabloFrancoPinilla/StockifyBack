@@ -38,8 +38,8 @@ namespace TeteProduct.Controllers
         }
 
 
-       [HttpPost]
-       [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
+        [HttpPost]
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Add([FromBody] ProductCreateDto productCreateDto)
         {
             if (!ModelState.IsValid)
@@ -47,18 +47,19 @@ namespace TeteProduct.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = _ProductService.Add(productCreateDto);
+            var product = _ProductService.Add(productCreateDto,HttpContext);
             return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Product Product)
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult Update(int id, ProductUpdateDto Product)
         {
             if (id != Product.Id)
             {
                 return BadRequest();
             }
-            _ProductService.Update(Product);
+            _ProductService.Update(Product, HttpContext);
             return NoContent();
         }
 

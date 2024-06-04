@@ -8,6 +8,8 @@ public class Transaction{
     public DateTime Date {get;set;}
     public int ProductId { get; set; }
     public Product Product { get; set; }
+    public string MakerName {get; set;}
+    public int Quantity { get; set; }
     public Transaction(){}
 
 

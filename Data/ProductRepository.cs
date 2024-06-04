@@ -137,12 +137,12 @@ public class ProductRepository : IProductRepository
 
         if (existingProduct != null)
         {
-            int quantityDifference = updatedProductDto.Quantity - existingProduct.Quantity;
+            int quantityChange = updatedProductDto.Quantity;
 
             existingProduct.Name = updatedProductDto.Name;
             existingProduct.Description = updatedProductDto.Description;
             existingProduct.Price = updatedProductDto.Price;
-            existingProduct.Quantity = updatedProductDto.Quantity;
+            existingProduct.Quantity += quantityChange; // Ajustar la cantidad existente
 
             var existingCategoryIds = existingProduct.ProductCategories.Select(pc => pc.CategoryId).ToList();
             var updatedCategories = _context.Categories.Where(c => updatedProductDto.CategoryNames.Contains(c.Name)).ToList();
@@ -161,15 +161,16 @@ public class ProductRepository : IProductRepository
 
             _context.SaveChanges();
 
-            if (quantityDifference != 0)
+            if (quantityChange != 0)
             {
                 var transaction = new Transaction
                 {
-                    Type = quantityDifference > 0 ? "Add" : "Remove",
+                    Type = quantityChange > 0 ? "Add" : "Remove",
                     Date = DateTime.UtcNow,
                     ProductId = existingProduct.Id,
                     MakerName = makerName,
-                    Quantity = Math.Abs(quantityDifference)
+                    Quantity = quantityChange,
+                    Total = existingProduct.Quantity
                 };
 
                 _context.Transactions.Add(transaction);

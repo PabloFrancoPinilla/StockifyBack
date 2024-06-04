@@ -1,4 +1,6 @@
 namespace Stockify.Data;
+
+using Microsoft.EntityFrameworkCore;
 using Stockify.Models;
 
 public class TransactionRepository : ITransactionRepository
@@ -11,11 +13,11 @@ public class TransactionRepository : ITransactionRepository
     }
     public Transaction Get(int id)
     {
-        return _context.Transactions.FirstOrDefault(p => p.Id == id);
+        return _context.Transactions.Include(p => p.Product).FirstOrDefault(p => p.Id == id);
     }
     public List<Transaction> GetAll()
     {
-        return _context.Transactions.ToList();
+        return _context.Transactions.Include(p => p.Product).ToList();
     }
     public void Add(Transaction Transaction)
     {

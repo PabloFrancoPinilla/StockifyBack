@@ -61,6 +61,7 @@ public class InventoryRepository : IInventoryRepository
             Id = p.Id,
             Name = p.Name,
             CreationDate = p.CreationDate,
+            Image = p.Image,
             Products = p.Products.Select(p => new ProductDto
             {
                 Id = p.Id,

@@ -5,7 +5,7 @@ using Stockify.Models;
 
 public interface IUserService
 {
-    UserDto Add(UserCreateDto userCreateDto);
+    UserDto Add(UserCreateDto userCreateDto, HttpContext httpContext);
     void Delete(int id);
     void Update(User User);
     User Get(int id);

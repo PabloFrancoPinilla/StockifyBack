@@ -19,7 +19,11 @@ public class TenantRepository : ITenantRepository
     }
     public TenantDto GetTenantFromCredentials(LoginRequest loginRequest)
     {
-        var tenantOut = _context.Tenants.FirstOrDefault(t => t.Name == loginRequest.Username && t.Password == loginRequest.Password);
+        var tenantOut = _context.Tenants
+            .FirstOrDefault(t =>
+                t.Name.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase) &&
+                t.Password.Equals(loginRequest.Password, StringComparison.OrdinalIgnoreCase));
+
         if (tenantOut == null)
         {
             return null;
@@ -32,7 +36,6 @@ public class TenantRepository : ITenantRepository
             Contact = tenantOut.Contact,
             Role = tenantOut.Role,
             Service = tenantOut.Service
-
         };
 
         return tenantDto;

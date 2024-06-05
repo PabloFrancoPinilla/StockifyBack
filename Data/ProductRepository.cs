@@ -13,6 +13,33 @@ public class ProductRepository : IProductRepository
     {
         _context = context;
     }
+     private string GetTenantService(HttpContext httpContext)
+    {
+
+        var user = httpContext.User;
+        var serviceTypeClaim = user.FindFirst("Service"); // Suponiendo que el token incluye este claim
+        return serviceTypeClaim?.Value;
+    }
+    private int GetTenantId(HttpContext httpContext)
+    {
+        var user = httpContext.User;
+        var tenantIdClaim = user.FindFirst("TenantId");
+        return int.Parse(tenantIdClaim.Value);
+    }
+    private bool CanCreateMoreUsers(HttpContext httpContext)
+    {
+        string serviceType = GetTenantService(httpContext);
+        int tenantId = GetTenantId(httpContext);
+        int userCount = _context.Users.Count(i => i.TenantId == tenantId);
+
+        return serviceType switch
+        {
+            Services.Free => userCount < 1,
+            Services.Basic => userCount < 5,
+            Services.Premium => true,
+            _ => false
+        };
+    }
     public ProductDto Get(int id)
     {
         var product = _context.Products

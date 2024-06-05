@@ -44,7 +44,7 @@ namespace  Stockify.Controllers
         [HttpPost]
         public IActionResult Add(UserCreateDto userCreateDto)
         {
-           var userDto = _UserService.Add(userCreateDto);
+           var userDto = _UserService.Add(userCreateDto,HttpContext);
         return Ok(userDto);
         }
 

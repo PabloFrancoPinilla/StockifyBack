@@ -12,6 +12,33 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
+    private string GetTenantService(HttpContext httpContext)
+    {
+
+        var user = httpContext.User;
+        var serviceTypeClaim = user.FindFirst("Service"); // Suponiendo que el token incluye este claim
+        return serviceTypeClaim?.Value;
+    }
+    private int GetTenantId(HttpContext httpContext)
+    {
+        var user = httpContext.User;
+        var tenantIdClaim = user.FindFirst("TenantId");
+        return int.Parse(tenantIdClaim.Value);
+    }
+    private bool CanCreateMoreUsers(HttpContext httpContext)
+    {
+        string serviceType = GetTenantService(httpContext);
+        int tenantId = GetTenantId(httpContext);
+        int userCount = _context.Users.Count(i => i.TenantId == tenantId);
+
+        return serviceType switch
+        {
+            Services.Free => userCount < 5,
+            Services.Basic => userCount < 20,
+            Services.Premium => true,
+            _ => false
+        };
+    }
     public User Get(int id)
     {
         return _context.Users.FirstOrDefault(p => p.Id == id);
@@ -20,8 +47,12 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.ToList();
     }
-    public UserDto Add(UserCreateDto userCreateDto)
+    public UserDto Add(UserCreateDto userCreateDto, HttpContext httpContext)
     {
+        if (!CanCreateMoreUsers(httpContext))
+        {
+            throw new InvalidOperationException("You have reached the maximum number of users allowed for your service level.");
+        }
         var tenant = _context.Tenants.FirstOrDefault(t => t.Name == userCreateDto.TenantName);
         var user = new User
         {
@@ -90,11 +121,17 @@ public class UserRepository : IUserRepository
     }
     public UserDto GetUserFromCredentials(LoginRequest loginRequest)
     {
-        var userOut = _context.Users.Include(u => u.Tenant).FirstOrDefault(u => u.Name == loginRequest.Username && u.Password == loginRequest.Password);
+        var userOut = _context.Users
+            .Include(u => u.Tenant)
+            .FirstOrDefault(u =>
+                u.Name.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase) &&
+                u.Password.Equals(loginRequest.Password, StringComparison.OrdinalIgnoreCase));
+
         if (userOut == null)
         {
             return null;
         }
+
         var userDto = new UserDto
         {
             Id = userOut.Id,
@@ -105,10 +142,11 @@ public class UserRepository : IUserRepository
             TenantName = userOut.Tenant.Name,
             TenantId = userOut.TenantId
         };
+
         Console.WriteLine(userDto.Name);
         return userDto;
     }
-    public List<UserDto> GetUsersByTenantId( HttpContext httpContext)
+    public List<UserDto> GetUsersByTenantId(HttpContext httpContext)
     {
         var user = httpContext.User;
         var tenantIdClaim = user.FindFirst("TenantId");

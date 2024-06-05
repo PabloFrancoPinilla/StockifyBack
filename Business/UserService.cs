@@ -15,7 +15,7 @@ public class UserService : IUserService
     public void Update(User User) => _UserRepository.Update(User);
     public void Delete(int id) => _UserRepository.Delete(id);
     public List<User> GetAll() => _UserRepository.GetAll();
-    public UserDto Add(UserCreateDto userCreateDto) => _UserRepository.Add(userCreateDto);
+    public UserDto Add(UserCreateDto userCreateDto, HttpContext httpContext) => _UserRepository.Add(userCreateDto, httpContext);
     public UserDto GetUserFromCredentials(LoginRequest loginRequest) => _UserRepository.GetUserFromCredentials(loginRequest);
     public List<UserDto> GetUsersByTenantId ( HttpContext httpContext) => _UserRepository.GetUsersByTenantId(httpContext);
 

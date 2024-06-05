@@ -41,7 +41,18 @@ namespace Stockify.Data
           .WithMany(c => c.ProductCategories)
           .HasForeignKey(pc => pc.CategoryId)
           .OnDelete(DeleteBehavior.Cascade);
-
+      modelBuilder.Entity<Tenant>().HasData(
+                     new Tenant
+                     {
+                       Id = 1,
+                       Name = "Messi",
+                       Service = Services.Premium,
+                       Password = "123", 
+                       Contact = "contact@example.com",
+                       Role = "tenant"
+                      
+                     }
+                 );
 
     }
 

@@ -8,6 +8,7 @@ public interface IProductRepository
     List<Product> GetAll();
     ProductDto Get(int id);
     List<ProductDto> GetProductsByInventoryId(int id);
+    List<ProductDto> GetProductsByTenantId( HttpContext httpContext);
     ProductDto Add(ProductCreateDto productCreateDto, HttpContext httpContext);
     void Update(ProductUpdateDto updatedProductDto, HttpContext httpContext);
     void Delete(int id);

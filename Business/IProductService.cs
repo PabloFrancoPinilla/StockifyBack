@@ -9,5 +9,6 @@ public interface IProductService {
     void Update(ProductUpdateDto updatedProductDto, HttpContext httpContext);
     ProductDto Get(int id);
     List<ProductDto> GetProductsByInventoryId(int id);
+    List<ProductDto> GetProductsByTenantId( HttpContext httpContext);
     List<Product> GetAll();
 }

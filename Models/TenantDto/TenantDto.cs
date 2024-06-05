@@ -9,6 +9,7 @@ public class TenantDto{
 
     public string Contact{get;set;}
     public string Role{get;set;}
+    public string Service{get;set;}
     public TenantDto(){}
 
 }

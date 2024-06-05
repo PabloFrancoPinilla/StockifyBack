@@ -11,6 +11,7 @@ public ProductService(IProductRepository ProductRepository){
 }
 public ProductDto Get(int id) => _ProductRepository.Get(id);
 public List<ProductDto> GetProductsByInventoryId(int id) => _ProductRepository.GetProductsByInventoryId(id);
+public List<ProductDto> GetProductsByTenantId( HttpContext httpContext) => _ProductRepository.GetProductsByTenantId(httpContext);
 public void Update(ProductUpdateDto updatedProductDto, HttpContext httpContext) => _ProductRepository.Update(updatedProductDto,httpContext);
 public void Delete(int id)=>_ProductRepository.Delete(id);
 public List<Product> GetAll () => _ProductRepository.GetAll();

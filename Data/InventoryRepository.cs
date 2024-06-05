@@ -12,6 +12,33 @@ public class InventoryRepository : IInventoryRepository
     {
         _context = context;
     }
+    private string GetTenantService(HttpContext httpContext)
+    {
+
+        var user = httpContext.User;
+        var serviceTypeClaim = user.FindFirst("Service"); // Suponiendo que el token incluye este claim
+        return serviceTypeClaim?.Value;
+    }
+    private int GetTenantId(HttpContext httpContext)
+    {
+        var user = httpContext.User;
+        var tenantIdClaim = user.FindFirst("TenantId");
+        return int.Parse(tenantIdClaim.Value);
+    }
+    private bool CanCreateMoreInventories(HttpContext httpContext)
+    {
+        string serviceType = GetTenantService(httpContext);
+        int tenantId = GetTenantId(httpContext);
+        int inventoryCount = _context.Inventories.Count(i => i.TenantId == tenantId);
+
+        return serviceType switch
+        {
+            Services.Free => inventoryCount < 1,
+            Services.Basic => inventoryCount < 5,
+            Services.Premium => true,
+            _ => false
+        };
+    }
     public InventoryDto Get(int id)
     {
         var inventory = _context.Inventories.Include(p => p.Products).ThenInclude(p => p.ProductCategories)
@@ -79,8 +106,13 @@ public class InventoryRepository : IInventoryRepository
         return inventoriesDto;
 
     }
-    public void Add(Inventory inventory)
+    public void Add(HttpContext httpContext, Inventory inventory)
     {
+        if (!CanCreateMoreInventories(httpContext))
+        {
+            throw new InvalidOperationException("No se puede crear más inventarios para este tenant debido a las restricciones de su plan.");
+        }
+
         _context.Inventories.Add(inventory);
         SaveChanges();
     }

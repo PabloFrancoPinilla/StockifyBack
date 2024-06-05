@@ -12,13 +12,15 @@ namespace Stockify.Controllers
     {
         private readonly IInventoryService _inventoryService;
         private readonly IProductService _productService;
-         private readonly ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
+         private readonly ITransactionService _transactionService;
 
-        public InventoryController(IInventoryService inventoryService, IProductService productService, ICategoryService categoryService)
+        public InventoryController(IInventoryService inventoryService, IProductService productService, ICategoryService categoryService, ITransactionService transactionService)
         {
             _inventoryService = inventoryService;
             _productService = productService;
             _categoryService = categoryService;
+            _transactionService = transactionService;
         }
 
         [HttpGet]
@@ -51,7 +53,18 @@ namespace Stockify.Controllers
             }
             return Ok(products);
         }
-         [HttpGet("{inventoryId}/categories")]
+        [HttpGet("{id}/transactions")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetTransactionsByInventoryId(int id)
+        {
+            var transactions = _transactionService.GetTransactionsByInventoryId(id);
+            if (transactions == null)
+            {
+                return NotFound();
+            }
+            return Ok(transactions);
+        }
+        [HttpGet("{inventoryId}/categories")]
         [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
         public IActionResult GetCategoriesByInventoryId(int inventoryId)
         {
@@ -75,7 +88,7 @@ namespace Stockify.Controllers
                 Image = inventoryCreateDto.Image,
                 Location = inventoryCreateDto.Location
             };
-            _inventoryService.Add(inventory);
+            _inventoryService.Add(HttpContext,inventory);
             return CreatedAtAction(nameof(Get), new { id = inventory.Id }, inventory);
         }
 

@@ -31,6 +31,7 @@ public class TenantRepository : ITenantRepository
             Name = tenantOut.Name,
             Contact = tenantOut.Contact,
             Role = tenantOut.Role,
+            Service = tenantOut.Service
 
         };
 

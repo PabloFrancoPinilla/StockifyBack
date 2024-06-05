@@ -13,11 +13,13 @@ namespace Stockify.Controllers
     {
         private readonly ITenantService _tenantService;
         private readonly IUserService _userService;
+        private readonly IProductService _productService;
 
-        public TenantController(ITenantService tenantService, IUserService userService)
+        public TenantController(ITenantService tenantService, IUserService userService, IProductService productService)
         {
             _tenantService = tenantService;
             _userService = userService;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -49,8 +51,18 @@ namespace Stockify.Controllers
             }
             return Ok(user);
         }
-
-       [HttpPost]
+        [HttpGet("/products")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetProductsByTenantId()
+        {
+            var products = _productService.GetProductsByTenantId(HttpContext);
+            if (products == null || products.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
+        [HttpPost]
         public IActionResult Add([FromBody] TenantCreateDto TenantCreateDto)
         {
             if (TenantCreateDto == null)
@@ -62,7 +74,8 @@ namespace Stockify.Controllers
                 Name = TenantCreateDto.Username,
                 Password = TenantCreateDto.Password,
                 Contact = TenantCreateDto.Contact,
-                Role = "tenant"
+                Role = "tenant",
+                Service = "free"
 
             };
             _tenantService.Add(Tenant);

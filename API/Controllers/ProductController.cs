@@ -10,10 +10,12 @@ namespace TeteProduct.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _ProductService;
+        private readonly ITransactionService _TransactionService;
 
-        public ProductController(IProductService ProductService)
+        public ProductController(IProductService ProductService, ITransactionService TransactionService)
         {
             _ProductService = ProductService;
+            _TransactionService = TransactionService;
         }
 
 
@@ -37,6 +39,18 @@ namespace TeteProduct.Controllers
             return Ok(Product);
         }
 
+        [HttpGet("{id}/transactions")]
+        [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
+        public IActionResult GetTransactionsByProductId(int id)
+        {
+            var transactions =_TransactionService.GetTransactionsByProductId(id);
+            if (transactions == null)
+            {
+                return NotFound();
+            }
+            return Ok(transactions);
+        }
+
 
         [HttpPost]
         [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
@@ -47,7 +61,7 @@ namespace TeteProduct.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = _ProductService.Add(productCreateDto,HttpContext);
+            var product = _ProductService.Add(productCreateDto, HttpContext);
             return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
         }
 

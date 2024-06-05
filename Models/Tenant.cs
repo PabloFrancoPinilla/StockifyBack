@@ -8,6 +8,7 @@ public class Tenant{
     public string Password { get; set;}
     public string Contact{get;set;}
     public string Role{get; set;}
+    public string Service{get; set;}
     public List<Inventory> Inventories { get; set;}
     public Tenant(){}
 

@@ -50,7 +50,9 @@ namespace Stockify.API.Controllers
                     claims.Add(new Claim(ClaimTypes.Name, tenant.Name));
                     claims.Add(new Claim("Contact", tenant.Contact));
                     claims.Add(new Claim(ClaimTypes.Role, tenant.Role));
+                    claims.Add(new Claim("Service", tenant.Service));
                     role = "Tenant";
+                    
                 }
                 else
                 {
@@ -120,6 +122,7 @@ namespace Stockify.API.Controllers
                     new Claim("TenantName", user.TenantName),
                     new Claim("TenantId", user.TenantId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
+                    
                 };
 
                 var tokenDescriptor = new SecurityTokenDescriptor

@@ -68,6 +68,43 @@ public class ProductRepository : IProductRepository
 
         return productdto;
     }
+    public List<ProductDto> GetProductsByTenantId( HttpContext httpContext)
+    {
+         var user = httpContext.User;
+        var tenantIdClaim = user.FindFirst("TenantId");
+        if (tenantIdClaim == null)
+        {
+            // Manejar el caso en el que no se puede encontrar el TenantId en el token JWT
+            return new List<ProductDto>();
+        }
+        int tenantId = Convert.ToInt32(tenantIdClaim.Value);
+
+        var products = _context.Products
+        .Include(p => p.ProductCategories)
+                    .ThenInclude(pc => pc.Category)
+                .Where(pc => pc.Inventory.TenantId == tenantId);
+
+        if (products == null)
+        {
+            return null;
+        }
+
+        var productdto = products.Select(p => new ProductDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Price = p.Price,
+            Quantity = p.Quantity,
+            Categories = p.ProductCategories.Select(pc => new CategoryDto
+            {
+                Id = pc.Category.Id,
+                Name = pc.Category.Name
+            }).ToList()
+        }).ToList();
+
+        return productdto;
+    }
 
     public List<Product> GetAll()
     {

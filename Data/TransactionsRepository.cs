@@ -19,6 +19,14 @@ public class TransactionRepository : ITransactionRepository
     {
         return _context.Transactions.Include(p => p.Product).ToList();
     }
+    public List<Transaction> GetTransactionsByProductId(int id){
+        var transactions = _context.Transactions.Include(p => p.Product).Where(t => t.ProductId == id).ToList();
+        return transactions;
+    }
+      public List<Transaction> GetTransactionsByInventoryId(int id){
+        var transactions = _context.Transactions.Include(p => p.Product).Where(t => t.Product.InventoryId == id).ToList();
+        return transactions;
+    }
     public void Add(Transaction Transaction)
     {
         _context.Transactions.Add(Transaction);

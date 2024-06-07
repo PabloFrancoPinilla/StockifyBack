@@ -1,5 +1,6 @@
 namespace Stockify.Business
 {
+    using Microsoft.AspNetCore.Http;
     using Stockify.Data;
     using Stockify.Models;
     using System;
@@ -39,9 +40,9 @@ namespace Stockify.Business
             }
         }
 
-          public UserDto Register(UserCreateDto userCreateDto)
+          public UserDto Register(UserCreateDto userCreateDto, HttpContext httpContext)
         {
-            var userout = _service.Add(userCreateDto);
+            var userout = _service.Add(userCreateDto,httpContext);
             return userout;
         }
     }

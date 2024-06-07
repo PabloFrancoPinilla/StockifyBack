@@ -103,7 +103,7 @@ namespace Stockify.API.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var user = _authService.Register(userCreateDto);
+                var user = _authService.Register(userCreateDto, HttpContext);
 
                 if (user == null)
                 {

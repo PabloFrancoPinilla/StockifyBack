@@ -19,10 +19,9 @@ public class TenantRepository : ITenantRepository
     }
     public TenantDto GetTenantFromCredentials(LoginRequest loginRequest)
     {
-        var tenantOut = _context.Tenants
-            .FirstOrDefault(t =>
-                t.Name.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase) &&
-                t.Password.Equals(loginRequest.Password, StringComparison.OrdinalIgnoreCase));
+        var tenantOut = _context.Tenants.FirstOrDefault(t =>
+            t.Name.ToLower() == loginRequest.Username.ToLower() &&
+            t.Password == loginRequest.Password);
 
         if (tenantOut == null)
         {

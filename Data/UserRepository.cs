@@ -124,8 +124,8 @@ public class UserRepository : IUserRepository
         var userOut = _context.Users
             .Include(u => u.Tenant)
             .FirstOrDefault(u =>
-                u.Name.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase) &&
-                u.Password.Equals(loginRequest.Password, StringComparison.OrdinalIgnoreCase));
+                u.Name.ToLower() == loginRequest.Username.ToLower() &&
+                u.Password == loginRequest.Password);
 
         if (userOut == null)
         {

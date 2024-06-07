@@ -95,9 +95,9 @@ public class ProductRepository : IProductRepository
 
         return productdto;
     }
-    public List<ProductDto> GetProductsByTenantId( HttpContext httpContext)
+    public List<ProductDto> GetProductsByTenantId(HttpContext httpContext)
     {
-         var user = httpContext.User;
+        var user = httpContext.User;
         var tenantIdClaim = user.FindFirst("TenantId");
         if (tenantIdClaim == null)
         {
@@ -234,7 +234,8 @@ public class ProductRepository : IProductRepository
                     ProductId = existingProduct.Id,
                     MakerName = makerName,
                     Quantity = quantityChange,
-                    Total = existingProduct.Quantity
+                    Total = existingProduct.Quantity,
+                    Price = existingProduct.Price
                 };
 
                 _context.Transactions.Add(transaction);

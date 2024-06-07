@@ -19,7 +19,7 @@ namespace Stockify.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var inventories = _TransactionService.GetAll();
+            var inventories = _TransactionService.GetAll(HttpContext);
             return Ok(inventories);
         }
 

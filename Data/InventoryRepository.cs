@@ -53,6 +53,7 @@ public class InventoryRepository : IInventoryRepository
         {
             Id = inventory.Id,
             Name = inventory.Name,
+            Color = inventory.Color,
             CreationDate = inventory.CreationDate,
             Products = inventory.Products.Select(p => new ProductDto
             {
@@ -89,6 +90,7 @@ public class InventoryRepository : IInventoryRepository
             Name = p.Name,
             CreationDate = p.CreationDate,
             Image = p.Image,
+            Color = p.Color,
             Products = p.Products.Select(p => new ProductDto
             {
                 Id = p.Id,

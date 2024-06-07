@@ -1,4 +1,6 @@
 namespace Stockify.Business;
+
+using Microsoft.AspNetCore.Http;
 using Stockify.Data;
 using Stockify.Models;
 public class TransactionService : ITransactionService
@@ -13,7 +15,7 @@ public class TransactionService : ITransactionService
     public List<Transaction> GetTransactionsByProductId(int id) => _TransactionRepository.GetTransactionsByProductId(id);
     public void Update(Transaction Transaction) => _TransactionRepository.Update(Transaction);
     public void Delete(int id) => _TransactionRepository.Delete(id);
-    public List<Transaction> GetAll() => _TransactionRepository.GetAll();
+    public List<Transaction> GetAll(HttpContext httpContext) => _TransactionRepository.GetAll(httpContext);
     public void Add(Transaction Transaction) => _TransactionRepository.Add(Transaction);
 
 }

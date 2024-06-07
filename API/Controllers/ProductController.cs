@@ -43,7 +43,7 @@ namespace TeteProduct.Controllers
         [Authorize(Roles = Roles.Reader + "," + Roles.Admin + "," + Roles.Tenant)]
         public IActionResult GetTransactionsByProductId(int id)
         {
-            var transactions =_TransactionService.GetTransactionsByProductId(id);
+            var transactions = _TransactionService.GetTransactionsByProductId(id);
             if (transactions == null)
             {
                 return NotFound();
@@ -79,6 +79,8 @@ namespace TeteProduct.Controllers
 
 
         [HttpDelete("{id}")]
+        
+        [Authorize(Roles = Roles.Admin + "," + Roles.Tenant)]
         public IActionResult Delete(int id)
         {
             _ProductService.Delete(id);

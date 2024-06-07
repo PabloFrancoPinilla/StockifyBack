@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Http;
 using Stockify.Models;
 
 namespace Stockify.Data;
 
 public interface ITransactionRepository
 {
-    List<Transaction> GetAll();
+    List<Transaction> GetAll(HttpContext httpContext);
     List<Transaction> GetTransactionsByInventoryId(int id);
     List<Transaction> GetTransactionsByProductId(int id);
     Transaction Get(int id);

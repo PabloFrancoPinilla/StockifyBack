@@ -15,3 +15,15 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>
+  api:
+    #container_name: apiContainer
+    #image: apidb-dockerdemo:1.2
+    ports:
+      - 8001:80
+    networks:
+      - backend
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+    depends_on:
+      - db

@@ -1,46 +1,107 @@
 namespace Stockify.Data;
 using Stockify.Models;
+using Microsoft.Extensions.Logging;
 
 public class CategoryRepository : ICategoryRepository
 {
     private readonly StockifyContext _context;
+    private readonly ILogger<CategoryRepository> _logger;
 
-    public CategoryRepository(StockifyContext context)
+    public CategoryRepository(StockifyContext context, ILogger<CategoryRepository> logger)
     {
         _context = context;
+        _logger = logger;
     }
+
     public Category Get(int id)
     {
-        return _context.Categories.FirstOrDefault(p => p.Id == id);
+        try
+        {
+            return _context.Categories.FirstOrDefault(p => p.Id == id);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving category with id {Id}", id);
+            throw;
+        }
     }
+
     public List<Category> GetAll()
     {
-        return _context.Categories.ToList();
+        try
+        {
+            return _context.Categories.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving all categories");
+            throw;
+        }
     }
-     public List<CategoryDto> GetCategoriesByInventoryId(int id)
+
+    public List<CategoryDto> GetCategoriesByInventoryId(int id)
     {
-        var categories =  _context.Categories.Where(p=>p.InventoryId == id);
-        var categoriesdto = categories.Select(p => new CategoryDto{
-            Id = p.Id,
-            Name = p.Name
-        }).ToList();
-        return categoriesdto;
+        try
+        {
+            var categories = _context.Categories.Where(p => p.InventoryId == id);
+            var categoriesdto = categories.Select(p => new CategoryDto
+            {
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+            return categoriesdto;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving categories by inventory id {Id}", id);
+            throw;
+        }
     }
+
     public void Add(Category Category)
     {
-        _context.Categories.Add(Category);
-        SaveChanges();
+        try
+        {
+            _context.Categories.Add(Category);
+            SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error adding category");
+            throw;
+        }
     }
-    public void Update (Category Category){
-        
+
+    public void Update(Category Category)
+    {
+        // Implementation for updating category
     }
-    public void Delete (int id){
-        var Category = _context.Categories.Find(id);
-        _context.Remove(Category);
-        SaveChanges(); 
+
+    public void Delete(int id)
+    {
+        try
+        {
+            var Category = _context.Categories.Find(id);
+            _context.Remove(Category);
+            SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting category with id {Id}", id);
+            throw;
+        }
     }
+
     public void SaveChanges()
     {
-        _context.SaveChanges();
+        try
+        {
+            _context.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error saving changes");
+            throw;
+        }
     }
 }

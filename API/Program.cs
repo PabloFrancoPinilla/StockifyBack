@@ -11,16 +11,16 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure Serilog
-/* Log.Logger = new LoggerConfiguration()
+
+ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/stockify-.log", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(); */
+builder.Logging.AddSerilog(); 
 
-// Add services to the container.
+
 var connectionString = builder.Configuration.GetConnectionString("ServerDB");
 builder.Services.AddDbContext<StockifyContext>(options =>
     options.UseSqlServer(connectionString));
@@ -36,7 +36,7 @@ builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// Register repositories
+
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -107,7 +107,7 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

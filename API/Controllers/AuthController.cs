@@ -24,7 +24,7 @@ namespace Stockify.API.Controllers
             _authService = authService;
             _configuration = configuration;
         }
-
+        //Crea el token cuando se loguea o un tenant o un usuario.
         [HttpPost("Login")]
         [AllowAnonymous]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
@@ -93,7 +93,7 @@ namespace Stockify.API.Controllers
                 return BadRequest(new { message = "Ocurrió un error al intentar iniciar sesión.", error = ex.Message });
             }
         }
-
+        //Crea el token cuando da de alta a un usuario
         [HttpPost("Register")]
         [Authorize( Roles = Roles.Tenant)]
         public IActionResult RegistrarSesion([FromBody] UserCreateDto userCreateDto)

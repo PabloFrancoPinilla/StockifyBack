@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj": {}
+    "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj": {}
   },
   "projects": {
-    "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj": {
+    "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj",
+        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj",
         "projectName": "Stockify.Business",
-        "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj",
+        "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj",
         "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\obj\\",
+        "outputPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj": {
-                "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj"
+              "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\Stockify.Data.csproj": {
+                "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\Stockify.Data.csproj"
               }
             }
           }
@@ -61,14 +61,14 @@
         }
       }
     },
-    "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj": {
+    "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\Stockify.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj",
+        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\Stockify.Data.csproj",
         "projectName": "Stockify.Data",
-        "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Data\\Stockify.Data.csproj",
+        "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\Stockify.Data.csproj",
         "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\Data\\obj\\",
+        "outputPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -83,8 +83,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj": {
-                "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj"
+              "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\Stockify.Models.csproj": {
+                "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\Stockify.Models.csproj"
               }
             }
           }
@@ -142,14 +142,14 @@
         }
       }
     },
-    "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj": {
+    "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\Stockify.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj",
+        "projectUniqueName": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\Stockify.Models.csproj",
         "projectName": "Stockify.Models",
-        "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\Stockify.Models.csproj",
+        "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\Stockify.Models.csproj",
         "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\Models\\obj\\",
+        "outputPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"

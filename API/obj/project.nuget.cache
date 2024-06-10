@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "6lzNUdckZ3ERZzdrgzfKpIxm9cOik5cWVtawDrnAq+ZWh2xF5Iu53Gmr01UCqID+5BwqaMn8kFfrH2AcU4Uv8w==",
+  "dgSpecHash": "9HPJxbD836aHMFIv2V+s6sWXjvQi78CXOPJ7/S04+sQkjI8JNRJNNmqI3fQe2KC1LaYUmiJjhDtEsNVnqbSZ3w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\franc\\Desktop\\Stockify\\API\\Stockify.API.csproj",
+  "projectFilePath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\API\\Stockify.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\franc\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\franc\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.7\\microsoft.aspnetcore.authentication.jwtbearer.7.0.7.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7gliczhyjWya0VDN/NksE04DuQe+0nZPonZEVA6zH0+UuSipopN1F9WnRp9i+2AFP8xYk155EGJznAjV72Qcjg==",
+  "dgSpecHash": "eiZjMzW7EWsjHmjxirPqGpMqnuJ7SGbDSeGfq3/+b1tXXGQauEyrX6FdhUlTITx87eZzlAMei1byuaqkpGtDGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj",
+  "projectFilePath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\franc\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

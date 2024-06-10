@@ -59,6 +59,25 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.15.1"
+        },
+        "compile": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cors/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2032,6 +2051,21 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.7": {
+      "sha512": "V3ftCQYDWxHogvrZ3XEr3TNCACqoxMuBwnCI5kq+GeuFGh6u0VYDMrRwvXvFKxdFHgFwS9CFxq4/p1csSVPI8g==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/7.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+        "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
+        "microsoft.aspnetcore.authentication.jwtbearer.7.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cors/2.2.0": {
@@ -6055,13 +6089,15 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.7",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.15",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "Serilog.AspNetCore >= 4.1.0",
       "Serilog.Extensions.Logging.File >= 2.0.0",
       "Stockify.Business >= 1.0.0",
-      "Swashbuckle.AspNetCore >= 6.5.0"
+      "Swashbuckle.AspNetCore >= 6.5.0",
+      "System.IdentityModel.Tokens.Jwt >= 6.21.0"
     ]
   },
   "packageFolders": {
@@ -6070,11 +6106,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\franc\\Desktop\\Stockify\\API\\Stockify.API.csproj",
+      "projectUniqueName": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\API\\Stockify.API.csproj",
       "projectName": "Stockify.API",
-      "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\API\\Stockify.API.csproj",
+      "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\API\\Stockify.API.csproj",
       "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\franc\\Desktop\\Stockify\\API\\obj\\",
+      "outputPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -6089,8 +6125,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj": {
-              "projectPath": "C:\\Users\\franc\\Desktop\\Stockify\\Business\\Stockify.Business.csproj"
+            "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj": {
+              "projectPath": "C:\\Users\\franc\\Desktop\\Pablo_FrancoPinilla_2SW_2024Back\\Business\\Stockify.Business.csproj"
             }
           }
         }
@@ -6105,6 +6141,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[7.0.7, )"
+          },
           "Microsoft.AspNetCore.Cors": {
             "target": "Package",
             "version": "[2.2.0, )"
@@ -6130,6 +6170,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.5.0, )"
+          },
+          "System.IdentityModel.Tokens.Jwt": {
+            "target": "Package",
+            "version": "[6.21.0, )"
           }
         },
         "imports": [

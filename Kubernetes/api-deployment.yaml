@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    env: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: app
+  template:
+    metadata:
+      labels:
+        env: app
+    spec:
+      containers:
+        - name: api
+          image: 315472865242.dkr.ecr.us-east-1.amazonaws.com/stockify:v2
+          ports:
+            - containerPort: 80
